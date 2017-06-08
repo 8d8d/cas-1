@@ -1,0 +1,116 @@
+.Head{
+    box-shadow: 0px 4px 5px #ccc;
+}
+.linkLogin{
+    font-size: 16px;
+    color: #8b8b8b;
+    padding-right:80px;
+    line-height: 40px;
+}
+.form-main{
+    padding-bottom: 50px;
+    border-bottom: 1px solid #ddd;
+}
+.linkLogin a{
+    color: #000;
+    font-weight: 600;
+}
+.input-item{
+    position: relative;
+    border: 1px solid #ddd;
+    margin: 0 auto;
+    width: 398px;
+    height: 52px;
+    z-index: 0;
+    margin-bottom: 30px;
+}
+.input-item input{
+    width: 250px;
+    font-size: 16px;
+    height: 25px;
+    padding-left: 15px;
+}
+.input-item img{
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+}
+.input-item:first-child{
+    margin-top: 30px;
+}
+.input-item:nth-last-child(2){
+    margin-bottom: 50px;
+}
+.input-sub{
+    position: relative;
+    margin: 0 auto;
+    width: 398px;
+}
+.input-sub input{
+    width: 100%;
+    background: #141414;
+    color: white;
+}
+.input-sub input:hover{
+    color: white;
+}
+.form-agreen{
+    position: relative;
+    width: 398px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+.form-agreen a{
+    color: #0685d4;
+}
+.form-agreen input{
+    width: 18px;
+    height: 18px;
+    border: solid 1px #cfd1d3;
+    vertical-align: text-top;
+    padding: 0;
+    margin: 0;
+    margin-right: 10px;
+}
+.input-item span{
+    padding-left: 5px;
+    color: #8b8b8b;
+    display: none;
+}
+.input-item span i{
+    font-size: 16px;
+}
+.getPhoneQode{
+    position: absolute;
+    right: 3px;
+    top: 3px;
+    width: 110px;
+    height: 46px;
+    border: none;
+    background: #f2f2f2;
+    color: #333;
+    padding: 0;
+}
+.input-item label:first-child{
+    text-align: center;
+    border-right: 1px solid #ddd;
+    width: 25%;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 50px;
+}
+label.error{
+    color:rgb(253, 21, 21);
+    font-size: 12px;
+}
+label.error i{
+    font-size: 20px;
+}
+label+.fa-check-circle{
+    color: #00b200;
+    position: absolute;
+    right: 10px;
+    line-height: 50px;
+    font-size: 20px;
+    display: none;
+}

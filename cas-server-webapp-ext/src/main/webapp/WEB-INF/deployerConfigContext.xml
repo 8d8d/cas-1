@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:sec="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+
+	<util:map id="authenticationHandlersResolvers">
+		<entry key-ref="proxyAuthenticationHandler" value-ref="proxyPrincipalResolver" />
+		<entry key-ref="primaryAuthenticationHandler" value-ref="primaryPrincipalResolver" />
+	</util:map>
+
+	<util:list id="authenticationMetadataPopulators">
+		<ref bean="successfulHandlerMetaDataPopulator" />
+		<ref bean="rememberMeAuthenticationMetaDataPopulator" />
+	</util:list>
+
+	<!-- 只返回登录账号 -->
+	<!-- <bean id="attributeRepository" class="org.jasig.services.persondir.support.NamedStubPersonAttributeDao" 
+		p:backingMap-ref="attrRepoBackingMap" /> -->
+
+	<!-- 返回更多属性给客户端 -->
+	<bean id="attributeRepository"
+		class="org.jasig.services.persondir.support.jdbc.SingleRowJdbcPersonAttributeDaoExt">
+		<constructor-arg index="0" ref="dataSource" />
+		<constructor-arg index="1"
+			value="select * from utea_sys_user where {0}" />
+		<property name="queryAttributeMapping">
+			<map>
+				<!--这里的key需写username和登录页面一致，value对应数据库用户名字段 -->
+				<entry key="username" value="account" />
+				<entry key="mobile" value="mobile" />
+				<entry key="email" value="email" />
+			</map>
+		</property>
+		<property name="resultAttributeMapping">
+			<map>
+				<!--key为对应的数据库字段名称，value为提供给客户端获取的属性名字，系统会自动填充值 -->
+				<entry key="uuid" value="uuid" />
+				<entry key="account" value="account" />
+				<entry key="nickname" value="nickname" />
+			</map>
+		</property>
+		<property name="queryType">
+			<value>OR</value>
+		</property>
+	</bean>
+
+	<!--注意使用不同的连接池，该配置不同，同时注意驱动包的类名 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		init-method="init" destroy-method="close" p:driverClassName="${cas.audit.database.driverClass}"
+		p:url="${cas.audit.database.url}" p:username="${cas.audit.database.user}"
+		p:password="${cas.audit.database.password}" p:initialSize="${cas.audit.database.pool.minSize}"
+		p:minIdle="${cas.audit.database.pool.minSize}" p:maxActive="${cas.audit.database.pool.maxSize}" />
+
+	<!--name名称是指定实现类的bean名称 -->
+	<!-- <alias name="dataSource" alias="queryDatabaseDataSource" /> -->
+	<alias name="dataSource" alias="queryEncodeDatabaseDataSource" />
+
+	<!-- <alias name="defaultPasswordEncoder" alias="passwordEncoder" /> -->
+	<alias name="plainTextPasswordEncoder" alias="passwordEncoder" />
+
+	<!-- <alias name="queryDatabaseAuthenticationHandler" alias="primaryAuthenticationHandler" 
+		/> -->
+	<!-- 以下为解密sha256加密的登录密码 -->
+	<alias name="moreQueryAndEncodeAuthenticationHandler" alias="primaryAuthenticationHandler" />
+
+	<!--<alias name="acceptUsersAuthenticationHandler" alias="primaryAuthenticationHandler" 
+		/> -->
+	<alias name="personDirectoryPrincipalResolver" alias="primaryPrincipalResolver" />
+
+	<util:map id="attrRepoBackingMap">
+		<entry key="uid" value="uid" />
+		<entry key="eduPersonAffiliation" value="eduPersonAffiliation" />
+		<entry key="groupMembership" value="groupMembership" />
+		<entry>
+			<key>
+				<value>memberOf</value>
+			</key>
+			<list>
+				<value>faculty</value>
+				<value>staff</value>
+				<value>org</value>
+			</list>
+		</entry>
+	</util:map>
+
+	<alias name="serviceThemeResolver" alias="themeResolver" />
+
+	<alias name="jsonServiceRegistryDao" alias="serviceRegistryDao" />
+	<!-- <alias name="jpaServiceRegistryDao" alias="serviceRegistryDao" /> -->
+
+	<alias name="defaultTicketRegistry" alias="ticketRegistry" />
+	<!-- <alias name="jpaTicketRegistry" alias="ticketRegistry" /> -->
+
+	<alias name="ticketGrantingTicketExpirationPolicy" alias="grantingTicketExpirationPolicy" />
+	<alias name="multiTimeUseOrTimeoutExpirationPolicy" alias="serviceTicketExpirationPolicy" />
+
+	<alias name="anyAuthenticationPolicy" alias="authenticationPolicy" />
+	<alias name="acceptAnyAuthenticationPolicyFactory" alias="authenticationPolicyFactory" />
+
+	<!-- 已经导入spring-configuration/inspektr-jdbc-audit-config.xml,屏蔽该段配置 -->
+	<!-- <bean id="auditTrailManager" -->
+	<!-- class="org.jasig.inspektr.audit.support.Slf4jLoggingAuditTrailManager" -->
+	<!-- p:entrySeparator="${cas.audit.singleline.separator:|}" -->
+	<!-- p:useSingleLine="${cas.audit.singleline:false}" /> -->
+
+	<alias name="neverThrottle" alias="authenticationThrottle" />
+
+	<util:list id="monitorsList">
+		<ref bean="memoryMonitor" />
+		<ref bean="sessionMonitor" />
+	</util:list>
+
+	<alias name="defaultPrincipalFactory" alias="principalFactory" />
+	<alias name="defaultAuthenticationTransactionManager" alias="authenticationTransactionManager" />
+	<alias name="defaultPrincipalElectionStrategy" alias="principalElectionStrategy" />
+	<alias name="tgcCipherExecutor" alias="defaultCookieCipherExecutor" />
+</beans>

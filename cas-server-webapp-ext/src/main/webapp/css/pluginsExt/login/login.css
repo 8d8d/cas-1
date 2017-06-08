@@ -1,0 +1,243 @@
+body{
+    margin: 0;
+    padding: 0;
+    color: #000;
+    font-family: "微软雅黑";
+}
+li{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
+li{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+}
+.loginRs a{
+    font-size: 18px;
+    line-height: 45px;
+}
+.loginBac{
+    width: 100%;
+    height: 600px;
+    background-image: url("../../../img/login/img_background.jpg");
+    background-size: cover;
+    position: relative;
+}
+.grayfont{
+    color: #8b8b8b;
+    font-weight: 400;
+}
+.btn.focus, .btn:focus, .btn:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+.loginForm{
+    position: relative;
+    width: 100%;
+}
+.loginBox{
+    background: #fff;
+    position: absolute;
+    width: 346px;
+    padding: 10px 25px;
+    padding-bottom: 5px;
+    left: 65%;
+    top: 18%;
+}
+.loginTit{
+    background: #fff;
+    position: absolute;
+    width: 346px;
+    padding-bottom: 20px;
+    left: 65%;
+    top: 10%;
+}
+.msg-tips{
+    position: relative;
+    background: #fff6d2;
+    color: #666;
+    border: 1px solid #ffe57d;
+    padding: 3px 10px 3px 8px;
+    line-height: 18px;
+    margin-bottom: 15px;
+    _height: 18px;
+}
+
+.msg-error{
+    position: relative;
+    background: #ffebeb;
+    display: none;
+    color: #e4393c;
+    border: 1px solid #faccc6;
+    padding: 3px 10px 3px 8px;
+    line-height: 18px;
+    min-height: 18px;
+    margin-bottom: 15px;
+    _height: 18px;
+}
+.msg-error b,.msg-tips b{
+    font-size: 18px;
+}
+.msg-tips b{
+    color: rgb(255, 181, 7);/f
+}
+.logIcon{
+    background: white;
+    font-size: 16px;
+    padding: 8px 0;
+    min-width: 40px;
+    text-align: center;
+}
+.logIcon+input{
+    height: 40px;
+}
+.checkbox{
+    display: inline-block;
+    margin-top: 0px;
+    margin-left: 23px;
+}
+.btn-block{
+    margin-top: 15px;
+}
+.active{
+    color: #000;
+    font-weight: 600;
+}
+.otChoise{
+    margin-top: 20px;
+}
+.choise ul{
+    float: left;
+    padding: 0;
+    margin-top: 10px;
+}
+.choise ul li{
+    float: left;
+    margin-left: 20px;
+}
+.choise ul li a{
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    background-image: url("../../../img/login/icon.png");
+}
+.choise ul li:nth-child(1){
+    margin-left: 0;
+}
+.choise ul li a.iconQQ{
+    transition: all 0.1s linear 0.1s;
+}
+.choise ul li a.iconWX{
+    background-position: -175px 0;
+    transition: all 0.1s linear 0.1s;
+}
+.choise ul li a.iconWB{
+    background-position: -25px 0;
+    transition: all 0.1s linear 0.1s;
+}
+.choise ul li+li a{
+    background-position: -175px 0\0;
+}
+.choise ul li a.iconQQ:hover{
+    background-position: 0px -25px;
+}
+.choise ul   a.iconWX:hover{
+    background-position: -175px -25px;
+}
+.choise ul a.iconWB:hover{
+    background-position: -25px -25px;
+    transition: all 0.1s linear 0.1s;
+}
+.loginTit{
+    font-size: 21px;
+    margin-bottom: 25px;
+}
+.poptip{
+    position: absolute;
+    top: 2%;
+    height: 30px;
+    left: 50%;
+}
+.qrcode-img img{
+    width: 140px;
+    height: 140px;
+}
+.qrcode-login{
+    display: none;
+}
+a{
+    color: #141414;
+}
+a:hover,a:focus{
+    text-decoration: none;
+    color: #000000;
+}
+.loginTit a:hover,a:focus{
+    font-weight: 600;
+}
+.btn-block{
+    color: white;
+    background: #141414;
+}
+.loginTit{
+    border-bottom: 1px solid #e3e3e3;
+    z-index: 5;
+    padding-top: 10px;
+}
+.loginTit div{
+    font-size: 18px;
+    text-align: center;
+    width: 50%;
+    float: left;
+}
+.loginTit div:first-child a{
+    display: inline-block;
+    width: 99%;
+    border-right: 1px solid #e3e3e3;
+}
+.qrcode-login{
+    height: 290px;
+    padding-top: 30px;
+    text-align: center;
+}
+.qrcode-login img{
+    width: 180px;
+    height: 180px;
+}
+.code-tips{
+    margin-top: 20px;
+    font-size: 12px;
+    color: #080808;
+}
+.code-tips a:first-child{
+    display: inline-block;
+    border-right: 1px solid #ccc;
+    width: 75%;
+}
+.code-tips a:last-child{
+    padding-left: 10px;
+}
+input+.fa-close{
+    position: absolute;
+    font-size: 14px;
+    cursor: pointer;
+    right: -5px;
+    top: 3px;
+    display: none;
+    width: 30px;
+    height: 25px;
+    line-height: 35px;
+    z-index: 5;
+    color: rgba(191, 191, 191, 0.85);
+}
+input+.fa-close:hover{
+    color: rgba(134, 134, 134, 0.85);
+}
+#msg{
+    display: none;
+}
